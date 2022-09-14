@@ -1,0 +1,33 @@
+provider "aws" {
+shared_credentials_file = "~/Downloads/Learning/credterraformu"
+region  = "ap-south-1"
+}
+
+resource "aws_security_group" "test_SG" {
+  name = "my-security-group"
+  description = "to define allowed inbound and outbound ports"
+  ingress {
+    description      = "Allow incoming traffic on Http port"
+    from_port        = 80
+    to_port          = 80
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+  ingress {
+    description      = "Allow incoming traffic on Https port"
+    from_port        = 443
+    to_port          = 443
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+  egress {
+    description      = "Allow outgoing on all port"
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+  tags = {
+   "Terraform" : "true"
+  }
+}
